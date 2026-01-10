@@ -39,7 +39,9 @@ EFFECT_SPEND_PCT_N = -0.076
 # 5. Rauschen (Noise)
 # Setze dies auf 0.0 für absolut "perfekte" deterministische Daten.
 # Setze es höher (z.B. 0.5 oder 1.0), um realistische Schwankungen zu simulieren.
-NOISE_LEVEL = 0.05
+# Hier haben wir mit Noise Level von 0.05, 0.5 und 1.0 experimentiert und jeweils eigen Excel Dateien erstellt
+# und analysiert.
+NOISE_LEVEL = 1.0
 
 
 def generate_mock_data():
@@ -151,7 +153,7 @@ def generate_mock_data():
             base_spend_amount * df['user_spend_fe'] * (1 + spend_shock) * random_noise_spend
     )
 
-    # Log Spending (für die Regression oft genutzt, siehe Table 4 )
+    # Log Spending (für die Regression oft genutzt, siehe Table 4)
     df['log_discretionary_spending'] = np.log(df['discretionary_spending'])
 
     return df
@@ -180,6 +182,13 @@ print(df_mock[df_mock['user_id'] == 'X_0'].head(5)[
 # This saves the dataframe 'df_mock' to an Excel file named 'mock_data.xlsx'.
 # index=False ensures that the pandas row numbers (0, 1, 2...) are not saved as a separate column.
 
-# df_mock.to_excel("mind_the_app_mock_data.xlsx", index=False)
+# Naming of Excel for mock data with 0.05 noise
+#df_mock.to_excel("mind_the_app_mock_data.xlsx", index=False)
 
-# print("Success! The file 'mind_the_app_mock_data.xlsx' has been saved.")
+# Naming of Excel for mock data with 0.5 noise
+#df_mock.to_excel("mind_the_app_mock_data_noise_0_5.xlsx", index=False)
+
+# Naming of Excel for mock data with 1.0 noise
+df_mock.to_excel("mind_the_app_mock_data_noise_1_0.xlsx", index=False)
+
+print("Success! The file 'mind_the_app_mock_data.xlsx' has been saved.")
